@@ -1,16 +1,16 @@
-'use client';
-import { z } from 'zod';
-import Link from 'next/link';
-import { useForm } from 'react-hook-form';
-import { OctagonAlertIcon } from 'lucide-react';
-import { zodResolver } from '@hookform/resolvers/zod';
+"use client";
+import { z } from "zod";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { OctagonAlertIcon } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-import { FaGoogle, FaGithub } from 'react-icons/fa';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { authClient } from '@/lib/auth-client';
-import { Button } from '@/components/ui/button';
-import { Alert, AlertTitle } from '@/components/ui/alert';
+import { FaGoogle, FaGithub } from "react-icons/fa";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertTitle } from "@/components/ui/alert";
 import {
 	Form,
 	FormControl,
@@ -18,22 +18,22 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from '@/components/ui/form';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+} from "@/components/ui/form";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z
 	.object({
-		name: z.string().min(1, { message: 'Name is required' }),
+		name: z.string().min(1, { message: "Name is required" }),
 		email: z.string().email(),
-		password: z.string().min(1, { message: 'Password is required!' }),
+		password: z.string().min(1, { message: "Password is required!" }),
 		confirmPassword: z
 			.string()
-			.min(1, { message: 'Password is required!' }),
+			.min(1, { message: "Password is required!" }),
 	})
 	.refine(data => data.password === data.confirmPassword, {
-		message: 'Password donnot match',
-		path: ['confirmPassword'],
+		message: "Password donnot match",
+		path: ["confirmPassword"],
 	});
 
 export const SignUpView = () => {
@@ -44,10 +44,10 @@ export const SignUpView = () => {
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			name: '',
-			email: '',
-			password: '',
-			confirmPassword: '',
+			name: "",
+			email: "",
+			password: "",
+			confirmPassword: "",
 		},
 	});
 
@@ -59,12 +59,12 @@ export const SignUpView = () => {
 				name: data.name,
 				email: data.email,
 				password: data.password,
-				callbackURL: '/login',
+				callbackURL: "/login",
 			},
 			{
 				onSuccess: () => {
 					setpending(false);
-					router.push('/');
+					router.push("/");
 				},
 				onError: ({ error }) => {
 					setpending(false);
@@ -73,13 +73,13 @@ export const SignUpView = () => {
 			}
 		);
 	};
-	const onSocial = (provider: 'github' | 'google') => {
+	const onSocial = (provider: "github" | "google") => {
 		seterror(null);
 		setpending(true);
 		authClient.signIn.social(
 			{
 				provider,
-				callbackURL: '/',
+				callbackURL: "/",
 			},
 			{
 				onSuccess: () => {
@@ -210,28 +210,28 @@ export const SignUpView = () => {
 
 								<div className='grid grid-cols-2 gap-4'>
 									<Button
-										variant={'outline'}
+										variant={"outline"}
 										type='button'
 										className='w-full'
 										disabled={pending}
-										onClick={() => onSocial('google')}
+										onClick={() => onSocial("google")}
 									>
 										<FaGoogle />
 									</Button>
 									<Button
-										variant={'outline'}
+										variant={"outline"}
 										type='button'
 										className='w-full'
 										disabled={pending}
-										onClick={() => onSocial('github')}
+										onClick={() => onSocial("github")}
 									>
 										<FaGithub />
 									</Button>
 								</div>
 								<div className='text-center text-sm'>
-									Already have an account?{' '}
+									Already have an account?{" "}
 									<Link
-										href={'/sign-in'}
+										href={"/sign-in"}
 										className='underline underline-offset-4'
 									>
 										SignIn
@@ -256,8 +256,8 @@ export const SignUpView = () => {
 				className='text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline
                             *:[a]:underline-offset-4'
 			>
-				By clicking continue, you agree to our{' '}
-				<a href='#'>Terms of Service</a>and{' '}
+				By clicking continue, you agree to our{" "}
+				<a href='#'>Terms of Service</a>and{" "}
 				<a href='#'>Privacy Policy</a>
 			</div>
 		</div>
