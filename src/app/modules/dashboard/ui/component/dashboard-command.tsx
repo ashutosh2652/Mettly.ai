@@ -13,7 +13,7 @@ interface Props {
 function DashboardCommand({ open, setOpen }: Props) {
 	return (
 		<CommandDialog open={open} onOpenChange={setOpen}>
-			<CommandInput placeholder='Find a meting or Agent' />
+			<CommandInput placeholder='Find a metting or Agent' />
 			<CommandList>
 				<CommandItem>item</CommandItem>
 			</CommandList>
