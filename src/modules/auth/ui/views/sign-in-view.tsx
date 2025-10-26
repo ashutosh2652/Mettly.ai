@@ -1,16 +1,16 @@
-'use client';
-import { z } from 'zod';
-import Link from 'next/link';
-import { useForm } from 'react-hook-form';
-import { OctagonAlertIcon } from 'lucide-react';
-import { zodResolver } from '@hookform/resolvers/zod';
+"use client";
+import { z } from "zod";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { OctagonAlertIcon } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-import { FaGoogle, FaGithub } from 'react-icons/fa';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { authClient } from '@/lib/auth-client';
-import { Button } from '@/components/ui/button';
-import { Alert, AlertTitle } from '@/components/ui/alert';
+import { FaGoogle, FaGithub } from "react-icons/fa";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertTitle } from "@/components/ui/alert";
 import {
 	Form,
 	FormControl,
@@ -18,13 +18,13 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from '@/components/ui/form';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+} from "@/components/ui/form";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
 	email: z.string().email(),
-	password: z.string().min(1, { message: 'Password is required!' }),
+	password: z.string().min(1, { message: "Password is required!" }),
 });
 
 export const SignInView = () => {
@@ -35,8 +35,8 @@ export const SignInView = () => {
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			email: '',
-			password: '',
+			email: "",
+			password: "",
 		},
 	});
 
@@ -47,12 +47,12 @@ export const SignInView = () => {
 			{
 				email: data.email,
 				password: data.password,
-				callbackURL: '/',
+				callbackURL: "/",
 			},
 			{
 				onSuccess: () => {
 					setpending(false);
-					router.push('/');
+					router.push("/");
 				},
 				onError: ({ error }) => {
 					setpending(false);
@@ -61,13 +61,13 @@ export const SignInView = () => {
 			}
 		);
 	};
-	const onSocial = (provider: 'github' | 'google') => {
+	const onSocial = (provider: "github" | "google") => {
 		seterror(null);
 		setpending(true);
 		authClient.signIn.social(
 			{
 				provider,
-				callbackURL: '/',
+				callbackURL: "/",
 			},
 			{
 				onSuccess: () => {
@@ -158,28 +158,28 @@ export const SignInView = () => {
 
 								<div className='grid grid-cols-2 gap-4'>
 									<Button
-										variant={'outline'}
+										variant={"outline"}
 										type='button'
 										className='w-full'
 										disabled={pending}
-										onClick={() => onSocial('google')}
+										onClick={() => onSocial("google")}
 									>
 										<FaGoogle />
 									</Button>
 									<Button
-										variant={'outline'}
+										variant={"outline"}
 										type='button'
 										className='w-full'
 										disabled={pending}
-										onClick={() => onSocial('github')}
+										onClick={() => onSocial("github")}
 									>
 										<FaGithub />
 									</Button>
 								</div>
 								<div className='text-center text-sm'>
-									Don&apos;t have an account?{' '}
+									Don&apos;t have an account?{" "}
 									<Link
-										href={'/sign-up'}
+										href={"/sign-up"}
 										className='underline underline-offset-4'
 									>
 										SignUp
@@ -204,8 +204,8 @@ export const SignInView = () => {
 				className='text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline
 							*:[a]:underline-offset-4'
 			>
-				By clicking continue, you agree to our{' '}
-				<a href='#'>Terms of Service</a>and{' '}
+				By clicking continue, you agree to our{" "}
+				<a href='#'>Terms of Service</a>and{" "}
 				<a href='#'>Privacy Policy</a>
 			</div>
 		</div>

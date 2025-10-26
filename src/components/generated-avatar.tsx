@@ -17,7 +17,7 @@ export const GeneratedAvatar = ({
 }: GeneratedAvatarProps) => {
 	let avatar;
 	if (variant === 'botttsNeutral') {
-		avatar = createAvatar(initials, { seed });
+		avatar = createAvatar(botttsNeutral, { seed });
 	} else {
 		avatar = createAvatar(initials, {
 			seed,
