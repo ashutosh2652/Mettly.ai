@@ -1,8 +1,7 @@
 import { z } from "zod";
 import { useTRPC } from "@/trpc/client";
 import { AgentGetOne } from "../../types";
-import { getQueryClient } from "@/trpc/server";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { agentInsertSchema } from "../../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -32,7 +31,7 @@ export const AgentForm = ({
 	initialValues,
 }: AgentFormProps) => {
 	const trpc = useTRPC();
-	const queryClient = getQueryClient();
+	const queryClient = useQueryClient();
 
 	const createAgent = useMutation(
 		trpc.agents.create.mutationOptions({
